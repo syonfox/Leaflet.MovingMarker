@@ -4,7 +4,7 @@
  * @Author: zhai
  * @Date: 2021-06-11 10:21:19
  * @LastEditors: zhai
- * @LastEditTime: 2021-06-18 13:40:34
+ * @LastEditTime: 2021-06-18 18:01:47
  */
 // initialize the map on the "map" div with a given center and zoom
 var map = new L.Map('map', {
@@ -47,6 +47,7 @@ var carIcon = L.icon({
 
 var marker1 = L.Marker.movingMarker(londonParisRomeBerlinBucarest,
     [3000, 9000, 9000, 4000], {
+        loop: false,
         icon: carIcon,
         rotate:true,
         autostart: true

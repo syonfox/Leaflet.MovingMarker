@@ -335,15 +335,7 @@ L.Marker.MovingMarker = L.Marker.extend({
             this._setLatLngWithCb(p);
         }
 
-        if (this.isEnded()) {
-            return;
-        }
-
-        if (noRequestAnim) {
-            return;
-        }
-
-        if (!this.isRunning()) {
+        if (noRequestAnim || !this.isRunning()) {
             return;
         }
 

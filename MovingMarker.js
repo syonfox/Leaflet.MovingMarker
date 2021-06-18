@@ -38,7 +38,6 @@ L.Marker.MovingMarker = L.Marker.extend({
     },
 
     initialize: function (latlngs, durations, options, cbmove, cbresetpos) {
-
         this.cbmove = cbmove;
         this.cbresetpos = cbresetpos;
 
@@ -60,8 +59,6 @@ L.Marker.MovingMarker = L.Marker.extend({
         this._state = L.Marker.MovingMarker.notStartedState;
         this._startTime = 0;
         this._pauseStartTime = 0;
-        this._animId = 0;
-        this._animRequested = false;
         this._currentLine = [];
         this._stations = {};
     },
@@ -125,14 +122,6 @@ L.Marker.MovingMarker = L.Marker.extend({
 
         // update line & move position
         this._animate(true);
-
-        if (this._state == L.Marker.MovingMarker.endedState) {
-            this._state = L.Marker.MovingMarker.runState;
-            this._animId = L.Util.requestAnimFrame(function (timestamp) {
-                this._animate();
-            }, this, true);
-            this._animRequested = true;
-        }
     },
 
     resume: function () {
@@ -152,27 +141,15 @@ L.Marker.MovingMarker = L.Marker.extend({
 
         this._pauseStartTime = this.now();
         this._state = L.Marker.MovingMarker.pausedState;
-        this._stopAnimation();
-        this._updatePosition();
     },
 
-    stop: function (elapsedTime) {
+    stop: function () {
         if (this.isEnded()) {
             return;
         }
 
-        this._stopAnimation();
-
-        if (typeof (elapsedTime) === 'undefined') {
-            // user call
-            elapsedTime = 0;
-            this._updatePosition();
-        }
-
         this._state = L.Marker.MovingMarker.endedState;
-        this.fire('end', {
-            elapsedTime: elapsedTime
-        });
+        this.fire('end', {});
     },
 
     addLatLng: function (latlng, duration) {
@@ -181,7 +158,6 @@ L.Marker.MovingMarker = L.Marker.extend({
     },
 
     moveTo: function (latlng, duration) {
-        this._stopAnimation();
         this._latlngs = [this.getLatLng(), L.latLng(latlng)];
         this._durations = [duration];
         this._state = L.Marker.MovingMarker.notStartedState;
@@ -201,17 +177,12 @@ L.Marker.MovingMarker = L.Marker.extend({
 
         if (this.options.autostart && (!this.isStarted())) {
             this.start();
-            return;
-        }
-
-        if (this.isRunning()) {
-            this._resumeAnimation();
         }
     },
 
     onRemove: function (map) {
         L.Marker.prototype.onRemove.call(this, map);
-        this._stopAnimation();
+        this._state = L.Marker.MovingMarker.endedState;
     },
 
     _createDurations: function (latlngs, duration) {
@@ -239,27 +210,9 @@ L.Marker.MovingMarker = L.Marker.extend({
 
     _startAnimation: function () {
         this._state = L.Marker.MovingMarker.runState;
-        this._animId = L.Util.requestAnimFrame(function (timestamp) {
-            this._startTime = this.now();
-            this._animate();
-        }, this, true);
-        this._animRequested = true;
-    },
 
-    _resumeAnimation: function () {
-        if (!this._animRequested) {
-            this._animRequested = true;
-            this._animId = L.Util.requestAnimFrame(function (timestamp) {
-                this._animate();
-            }, this, true);
-        }
-    },
-
-    _stopAnimation: function () {
-        if (this._animRequested) {
-            L.Util.cancelAnimFrame(this._animId);
-            this._animRequested = false;
-        }
+        this._startTime = this.now();
+        this._animate();
     },
 
     _updatePosition: function () {
@@ -328,12 +281,12 @@ L.Marker.MovingMarker = L.Marker.extend({
                 elapsedTime -= stationDuration;
             }
 
+            lineIndex++;
+
             // key point
             if (this.cbmove) {
-                this.cbmove(this._latlngs[lineIndex + 1])
+                this.cbmove(this._latlngs[lineIndex])
             }
-
-            lineIndex++;
 
             // test if we have reached the end of the polyline
             if (lineIndex >= this._latlngs.length - 1) {
@@ -347,7 +300,7 @@ L.Marker.MovingMarker = L.Marker.extend({
                     // place the marker at the end, else it would be at
                     // the last position
                     this._setLatLngWithCb(this._latlngs[this._latlngs.length - 1]);
-                    this.stop(elapsedTime);
+                    this.stop();
                     return null;
                 }
             }
@@ -370,15 +323,8 @@ L.Marker.MovingMarker = L.Marker.extend({
     },
 
     _animate: function (noRequestAnim) {
-        this._animRequested = false;
-
         // find the next line and compute the new elapsedTime
         var elapsedTime = this._updateLine(this.now());
-
-        if (this.isEnded()) {
-            // no need to animate
-            return;
-        }
 
         if (elapsedTime != null) {
             // compute the position
@@ -389,15 +335,21 @@ L.Marker.MovingMarker = L.Marker.extend({
             this._setLatLngWithCb(p);
         }
 
+        if (this.isEnded()) {
+            return;
+        }
+
         if (noRequestAnim) {
             return;
         }
 
-        this._animId = L.Util.requestAnimFrame(() => {
+        if (!this.isRunning()) {
+            return;
+        }
+
+        L.Util.requestAnimFrame(() => {
             this._animate();
         }, this, false);
-
-        this._animRequested = true;
     }
 });
 

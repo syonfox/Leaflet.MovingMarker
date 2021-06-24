@@ -4,7 +4,7 @@
  * @Author: zhai
  * @Date: 2021-06-11 10:21:19
  * @LastEditors: zhai
- * @LastEditTime: 2021-06-18 18:01:47
+ * @LastEditTime: 2021-06-24 09:31:40
  */
 // initialize the map on the "map" div with a given center and zoom
 var map = new L.Map('map', {
@@ -49,7 +49,7 @@ var marker1 = L.Marker.movingMarker(londonParisRomeBerlinBucarest,
     [3000, 9000, 9000, 4000], {
         loop: false,
         icon: carIcon,
-        rotate:true,
+        rotate: true,
         autostart: true
     }, (p) => {
         path.addLatLng(p)
@@ -57,7 +57,9 @@ var marker1 = L.Marker.movingMarker(londonParisRomeBerlinBucarest,
         path.setLatLngs([]);
     }).addTo(map);
 
-
+map.on('click', (e) => {
+    marker1.moveTo(e.latlng, 5000);
+});
 
 // marker1.on('end', function () {
 //     marker1.bindPopup('<b>Welcome to Bucarest !</b>', {

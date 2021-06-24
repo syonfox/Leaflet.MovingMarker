@@ -16,7 +16,6 @@ L.getAngle = function (cx, cy, ex, ey) {
 };
 
 L.Marker.MovingMarker = L.Marker.extend({
-
     //state constants
     statics: {
         notStartedState: 0,
@@ -148,6 +147,7 @@ L.Marker.MovingMarker = L.Marker.extend({
             return;
         }
 
+        this._pauseStartTime = this.now();
         this._state = L.Marker.MovingMarker.endedState;
         this.fire('end', {});
     },
@@ -158,11 +158,14 @@ L.Marker.MovingMarker = L.Marker.extend({
     },
 
     moveTo: function (latlng, duration) {
-        this._latlngs = [this.getLatLng(), L.latLng(latlng)];
-        this._durations = [duration];
-        this._state = L.Marker.MovingMarker.notStartedState;
-        this.start();
-        this.options.loop = false;
+        this._latlngs.push(L.latLng(latlng));
+        this._durations.push(duration);
+
+        if (this._state != L.Marker.MovingMarker.runState) {
+            this._currentLine[0] = this.getLatLng();
+            this._currentDuration -= (this._pauseStartTime - this._startTime);
+            this._startAnimation();
+        }
     },
 
     addStation: function (pointIndex, duration) {

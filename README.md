@@ -6,8 +6,13 @@ Leaflet.MovingMarker
 A Leaflet plug-in to create moving marker. Very useful to represent transportations or other movable things !
 
 Demos
+
+![DEMO](https://github.com/kanbang/Leaflet.MovingMarker/blob/master/demo.gif)
+
 --------
-Follow this link: [here](http://ewoken.github.io/Leaflet.MovingMarker)
+
+Follow this link: [here](https://kanbang.github.io/Leaflet.MovingMarker/examples/)
+
 
 Compatibility with Leaflet Versions
 -----------------------------------
@@ -50,13 +55,12 @@ API
 
 **Factory**
 ```
-L.movingMarker(<LatLng[]> latlngs, <Number[]> durations [,<Object> options]);
+L.movingMarker(<LatLng[]> latlngs, <Number[]> durations [,<Object> options], <function(pos)>cbmove, function()cbresetpos);
 ```
 
 **durations**:
 *   if array of number : duration in ms per line segment.
 *   if number : total duration (autocalculate duration in ms per line segment proportionnaly to distance between points).
-
 
 Note: As Leaftlet's other functions, it also accept them in a simple Array form and simple object form ([see Leaflet docs](http://leafletjs.com/reference.html#latlng)).
 
@@ -65,8 +69,16 @@ All the marker's options are available.
 
  - ```autostart```: if ``` true``` the marker will start automatically after it is added to map. Default: ```false```
  - ``` loop```: if ```true``` the marker will start automatically at the beginning of the polyline when the it arrives at the end. Default: ```false```
+  - ```rotation```: if ```true``` the marker will rotate in real time to the direction of polyline. Default: ```false```
+ - ```initialRotationAngle```: The initial rotation angle. Default: ```false```
+ - ```rotationOrigin```: The origin of rotation. Default: ```center```
 
-	
+**cbmove**
+call back when maker moved
+
+**cbresetpos**
+call back when setcurpos call
+
 **Methods**
 
 *Getter*
@@ -86,6 +98,8 @@ All the marker's options are available.
  - ``` stop()```: manually stops the marker, if you call ```start`` after, the marker starts again the polyline at the beginning.
  - ```pause()```: just pauses the marker
  - ``` resume()```: the marker resumes its animation
+ - ``` setcurpos(val)```: set the marker's position [0-1]
+
  - ```addLatLng(latlng, duration)```: adds a point to the polyline. Useful, if we have to set the path one by one.
  - ``` moveTo(latlng, duration)```: stops current animation and make the marker move to ```latlng``` in ```duration``` ms. 
  - ```addStation(pointIndex, duration)```: the marker will stop at the ```pointIndex```th points of the polyline during ```duration``` ms. You can't add a station at the first or last point of the polyline.

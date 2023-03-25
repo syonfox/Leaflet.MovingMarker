@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 0.x
+ * @Author: zhai
+ * @Date: 2021-06-11 10:21:19
+ * @LastEditors: zhai
+ * @LastEditTime: 2021-06-18 17:27:28
+-->
 <!DOCTYPE html>
 
 <html>
@@ -15,31 +23,67 @@
     <meta name="author" content="Ewoken">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
 
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 
-
-
 <body>
-
-
     <main>
         <h1> Demo of Leaflet.MovingMarker </h1>
 
+        <div class="slidecontainer">
+            <button onclick="start()">start</button>
+            <button onclick="pause()">pause</button>
+            <button onclick="resume()">resume</button>
+            <button onclick="stop()">stop</button>
+
+            <label for="fader">Val: </label>
+            <output for="fader" id="volume">50</output>
+            <input type="range" min="0" max="100" value="0" class="slider" id="myRange" oninput="outputUpdate(value)">
+
+        </div>
         <section>
             <div id="map">
             </div>
         </section>
-
-
     </main>
 
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script type="text/javascript" src="../MovingMarker.js"></script>
+    <!-- <script type="text/javascript" src="../MovingMarkerMin.js"></script> -->
     <script type="text/javascript" src="script.js"></script>
 
+    <script>
+        function outputUpdate(vol) {
+            document.querySelector('#volume').value = vol;
+            marker1.setcurpos(vol / 100);
+        }
+
+        function start() {
+            marker1.start();
+        }
+
+        function pause() {
+            marker1.pause();
+
+        }
+
+        function resume() {
+            marker1.resume();
+        }
+
+        function stop() {
+            marker1.stop();
+        }
+    </script>
 
 </body>
+
 </html>

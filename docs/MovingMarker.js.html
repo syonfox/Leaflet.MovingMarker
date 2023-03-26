@@ -1,4 +1,32 @@
-//https://github.com/bbecquet/Leaflet.RotatedMarker/blob/master/leaflet.rotatedMarker.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: MovingMarker.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: MovingMarker.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//https://github.com/bbecquet/Leaflet.RotatedMarker/blob/master/leaflet.rotatedMarker.js
 (function () {
     // save these original methods before they are overwritten
     var proto_initIcon = L.Marker.prototype._initIcon;
@@ -7,8 +35,8 @@
     var oldIE = (L.DomUtil.TRANSFORM === 'msTransform');
 
     L.Marker.addInitHook(function () {
-        var iconOptions = this.options.icon && this.options.icon.options;
-        var iconAnchor = iconOptions && this.options.icon.options.iconAnchor;
+        var iconOptions = this.options.icon &amp;&amp; this.options.icon.options;
+        var iconAnchor = iconOptions &amp;&amp; this.options.icon.options.iconAnchor;
         if (iconAnchor) {
             iconAnchor = (iconAnchor[0] + 'px ' + iconAnchor[1] + 'px');
         }
@@ -119,7 +147,7 @@ L.interpolateAngle = function (a1, a2, duration, t) {
 
     var angle = Math.floor(a1 + diff * k);
 
-    if (angle < 0) {
+    if (angle &lt; 0) {
         angle += 360;
     }
     if (angle >= 360) {
@@ -149,7 +177,7 @@ L.interpolateAngle = function (a1, a2, duration, t) {
 //     if (diff > 180) {
 //         a2 -= 360;
 //         diff = a2 - a1;
-//     } else if (diff < -180) {
+//     } else if (diff &lt; -180) {
 //         a2 += 360;
 //         diff = a2 - a1;
 //     }
@@ -170,7 +198,7 @@ L.interpolateAngle = function (a1, a2, duration, t) {
 //             angle = Math.floor(diff * (1 - Math.pow(1 - k, exp)) + a1);
 //             break;
 //         case 'ease-in-out':
-//             if (k < 0.5) {
+//             if (k &lt; 0.5) {
 //                 angle = Math.floor(diff * 2 * Math.pow(k, exp) + a1);
 //             } else {
 //                 angle = Math.floor(diff * (1 - Math.pow(-2 * k + 2, exp) / 2) + a1);
@@ -208,7 +236,7 @@ L.getAngle = function (cx, cy, ex, ey) {
     var dx = ex - cx;
     var theta = Math.atan2(dy, dx); // range (-PI, PI]
     theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
-    // if (theta < 0) theta = 360 + theta; // range [0, 360)
+    // if (theta &lt; 0) theta = 360 + theta; // range [0, 360)
     return theta;
 };
 
@@ -378,7 +406,7 @@ L.Marker.MovingMarker = L.Marker.extend({
     },
 
     addStation: function (pointIndex, duration) {
-        if (pointIndex > this._latlngs.length - 2 || pointIndex < 1) {
+        if (pointIndex > this._latlngs.length - 2 || pointIndex &lt; 1) {
             return;
         }
         var t = this._latlngs[pointIndex];
@@ -502,7 +530,7 @@ L.Marker.MovingMarker = L.Marker.extend({
 
         let buf = this._rotateBuffer;
         let bp, bc, bn
-        if (buf < 1) { // in the mod use a percent of the duration
+        if (buf &lt; 1) { // in the mod use a percent of the duration
             bp = dp * buf;
             bc = dc * buf;
             bn = dn * buf;
@@ -578,7 +606,7 @@ L.Marker.MovingMarker = L.Marker.extend({
         // if(this.options.debug) console.log("Update Line ",lineIndex);
 
         // not enough time to update the line
-        if (elapsedTime <= this._currentDuration) {
+        if (elapsedTime &lt;= this._currentDuration) {
             //we know were not done
             return elapsedTime;
         }
@@ -629,7 +657,7 @@ L.Marker.MovingMarker = L.Marker.extend({
         }
 
         let angle
-        if (dt < rd.c.buf) {
+        if (dt &lt; rd.c.buf) {
             let a, b, len, pos;
             //at start finish previous turn
             a = rd.p.angle;
@@ -679,7 +707,7 @@ L.Marker.MovingMarker = L.Marker.extend({
 
         this._rotationSkipCount++;
         //this is a small optimisation to only calculate every 5th frame
-        if (this.options.smoothrotate && this._rotationSkipCount > this._rotationSkip) {
+        if (this.options.smoothrotate &amp;&amp; this._rotationSkipCount > this._rotationSkip) {
             this._rotationSkipCount = 0;
             this._updateRotation(elapsedTime);
         }
@@ -726,7 +754,7 @@ L.Marker.MovingMarker = L.Marker.extend({
             }, false);
         }
 
-        if (this.options.autostart && (!this.isStarted())) {
+        if (this.options.autostart &amp;&amp; (!this.isStarted())) {
             this.start();
             return;
         }
@@ -811,7 +839,7 @@ L.Marker.createMovingMarker = function (map, latlngs, velocity, options, popupTe
         let distances = [];
         let totalDistance = 0;
         // Calculate the distances between each LatLng object and the total distance
-        for (let i = 0; i < latlngs.length - 1; i++) {
+        for (let i = 0; i &lt; latlngs.length - 1; i++) {
             let distance = latlngs[i].distanceTo(latlngs[i + 1]);
             distances.push(distance);
             totalDistance += distance;
@@ -868,4 +896,26 @@ L.Marker.createMovingMarker = function (map, latlngs, velocity, options, popupTe
 //         featureType: 'point'
 //     }
 //
-// }, {}, {})
+// }, {}, {})</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="L.Marker.MovingMarker.html">MovingMarker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_updateLine">_updateLine</a></li><li><a href="global.html#addLatLng">addLatLng</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#resume">resume</a></li><li><a href="global.html#start">start</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 20:04:41 GMT-0700 (Pacific Daylight Saving Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

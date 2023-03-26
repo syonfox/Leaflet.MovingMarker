@@ -7,12 +7,15 @@ A Leaflet plug-in to create moving marker. Very useful to represent transportati
 
 Demos
 --------
-Follow this link: [here](http://ewoken.github.io/Leaflet.MovingMarker)
+Follow this link: [here](https://syonfox.github.io/Leaflet.MovingMarker/examples/index.html)
 
 Compatibility with Leaflet Versions
 -----------------------------------
 
-Compatible with the latest stable Leaflet version `leaflet-0.7.2`.
+Compatible with the latest stable Leaflet version `leaflet-1.9`.
+also should work with old :) 
+
+
 
 Browser Compatibility
 -----------------------------------
@@ -28,6 +31,11 @@ Features
 * You can make **loop**.
 * You can add the the point one by one.
 * You can add *station* at some points of the polyline.
+* You can control the rotation of allong the path.
+* You can also construct the path from a velocity with createMovingMarker
+* You can listen for events on `step` and `station` as well as `loop` and `end`
+* You can view the internal _rotationData 
+* You can use the RotaionMarker helpers or other interpolation function
 
 Usage
 -----
@@ -63,9 +71,29 @@ Note: As Leaftlet's other functions, it also accept them in a simple Array form 
 **Options**
 All the marker's options are available.
 
- - ```autostart```: if ``` true``` the marker will start automatically after it is added to map. Default: ```false```
- - ``` loop```: if ```true``` the marker will start automatically at the beginning of the polyline when the it arrives at the end. Default: ```false```
+[//]: # ( - ```autostart```: if ``` true``` the marker will start automatically after it is added to map. Default: ```false```)
+[//]: # ( - ``` loop```: if ```true``` the marker will start automatically at the beginning of the polyline when the it arrives at the end. Default: ```false```)
+  - `autostart`: If set to true, the marker will start moving automatically upon creation. Defaults to false.
 
+ -  `loop`: If set to true, the marker will continuously loop over the polyline. If set to false, the marker will stop at the last point of the polyline. Defaults to false.
+
+ -  `debug`: If set to true, debug information will be logged to the console. Defaults to false.
+
+  - `center`: If set to true, the map will be centered on the marker as it moves along the polyline. Defaults to false.
+
+  - `bound`: If set to true, the map will be bounded to the polyline as the marker moves along it. Defaults to false.
+
+ -  `zoompause`: If set to true, the map zooming will be paused while the marker is moving. Defaults to false.
+
+  - `rotate`: If set to true, the marker will rotate to follow the direction of the polyline. Defaults to true.
+
+  - `smoothrotate`: If set to true, the marker's rotation will be interpolated to provide a smooth rotation effect. If set to a number between 0 and 1, it specifies the proportion of the segment length at which the rotation interpolation will start. If set to a number greater than 1, it specifies the distance from each endpoint of the segment at which the rotation interpolation will start. Defaults to true.
+
+ -  `initialRotationOffset`: Sets the initial rotation offset for the marker. Defaults to 0.
+
+ -  `rotationEasing`: Sets the easing function to be used for rotation interpolation. Defaults to "linear".
+
+ -  `rotationExp`: Sets the exponent value for the easing function used in rotation interpolation. Defaults to 2.
 	
 **Methods**
 

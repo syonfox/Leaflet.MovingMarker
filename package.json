@@ -1,0 +1,32 @@
+{
+  "name": "@syonfox/leaflet-moving-marker",
+  "version": "1.0.0",
+  "description": "L.MovingMarker(L.LatLng[], durations[], options)",
+  "main": "MovingMarker.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc -d docs ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syonfox/L.MovingMarker.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "js",
+    "moving",
+    "marker",
+    "animation",
+    "vanilla"
+  ],
+  "author": "syonfox, Ewoken",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/syonfox/L.MovingMarker/issues"
+  },
+  "homepage": "https://github.com/syonfox/L.MovingMarker#readme"
+}

@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>MovingMarker<span class="signature">(latlngs, durations, options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>MovingMarker<span class="signature">(latlngs, durations, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="MovingMarker"><span class="type-signature"></span>new MovingMarker<span class="signature">(latlngs, durations, options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="MovingMarker"><span class="type-signature"></span>new MovingMarker<span class="signature">(latlngs, durations, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,9 +49,8 @@
 
 
 <div class="description">
-    Creates a new MovingMarker object which extends L.Marker.
-It animates the movement of the marker along a given set of coordinates (latlngs)
-with a corresponding set of durations (durations) between each coordinate.
+    Creates a new MovingMarker object which extends L.Marker. It animates the movement of the marker
+along a given set of coordinates with a corresponding set of durations between each coordinate.
 </div>
 
 
@@ -74,6 +73,8 @@ with a corresponding set of durations (durations) between each coordinate.
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -100,10 +101,18 @@ with a corresponding set of durations (durations) between each coordinate.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Array of LatLng objects representing the path that the marker should follow.</td>
+            <td class="description last">An array of LatLng objects representing the path that the marker should follow.</td>
         </tr>
 
     
@@ -123,10 +132,19 @@ with a corresponding set of durations (durations) between each coordinate.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Array of durations (in milliseconds) representing the time that the marker should take to move from one coordinate to the next.</td>
+            <td class="description last">An array of durations (in milliseconds) representing the time that the marker should take to move from one coordinate to the next.
+ Note durations is theoretically an n-1 array with n being the length of the LineString  p1-p2-p3-p4 etc</td>
         </tr>
 
     
@@ -146,10 +164,20 @@ with a corresponding set of durations (durations) between each coordinate.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Options for the MovingMarker object.
+            <td class="description last">An optional object with options for the MovingMarker object.
                 <h6>Properties</h6>
                 
 
@@ -250,7 +278,284 @@ with a corresponding set of durations (durations) between each coordinate.
                 </td>
             
 
-            <td class="description last">Whether to loop the animation back to the start after reaching the end.</td>
+            <td class="description last">Whether to loop the animation back to the start after reaching the end. Note that for a smooth loop, the last coordinate in the path should be the same as the first coordinate.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>debug</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Whether to enable debugging information.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>center</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">true, "pan", "lock" Whether to center the map view on the marker while it moves.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bound</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Whether to fit the map view to the marker bounds while it moves.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>zoompause</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">EXPAREMENTAL Whether to pause the animation when the map view is zoomed.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rotate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Whether to rotate the marker in the direction of movement.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>smoothrotate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Whether to smoothly interpolate the rotation between coordinates. If a number is provided, it will be used as the proportion of the path to use as a buffer for rotation interpolation. If `true`, a default buffer of 10% on either side of the endpoint will be used.
+false = simple fast rotate; 0-1 = percentage of length; 1+ = number of ms</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>initialRotationOffset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The initial rotation offset of the marker in degrees.</td>
         </tr>
 
     
@@ -298,7 +603,7 @@ with a corresponding set of durations (durations) between each coordinate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MovingMarker.js.html">MovingMarker.js</a>, <a href="MovingMarker.js.html#line215">line 215</a>
+        <a href="MovingMarker.js.html">MovingMarker.js</a>, <a href="MovingMarker.js.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -332,17 +637,6 @@ with a corresponding set of durations (durations) between each coordinate.
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="L.Marker.html">L.Marker</a></li>
-    </ul>
-
-
-    
 
     
 
@@ -371,13 +665,13 @@ with a corresponding set of durations (durations) between each coordinate.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="L.Marker.MovingMarker.html">MovingMarker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_updateLine">_updateLine</a></li><li><a href="global.html#addLatLng">addLatLng</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#resume">resume</a></li><li><a href="global.html#start">start</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="L.Marker.MovingMarker.html">MovingMarker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_updateLine">_updateLine</a></li><li><a href="global.html#addLatLng">addLatLng</a></li><li><a href="global.html#isEnded">isEnded</a></li><li><a href="global.html#isPaused">isPaused</a></li><li><a href="global.html#isRunning">isRunning</a></li><li><a href="global.html#isStarted">isStarted</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#onAdd">onAdd</a></li><li><a href="global.html#onRemove">onRemove</a></li><li><a href="global.html#pause">pause</a></li><li><a href="global.html#resume">resume</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#stop">stop</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 20:04:41 GMT-0700 (Pacific Daylight Saving Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 28 2023 02:02:33 GMT-0700 (Pacific Daylight Saving Time)
 </footer>
 
 <script> prettyPrint(); </script>

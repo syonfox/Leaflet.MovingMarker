@@ -1,4 +1,9 @@
 // initialize the map on the "map" div with a given center and zoom
+
+window.addEventListener('load', e=> {
+
+
+
 var map = new L.Map('map', {
   zoom: 6,
   minZoom: 3,
@@ -132,7 +137,7 @@ function initDom(marker) {
     // }
 }
 // map.panTo(cool.lcool)
-var marker = L.Marker.createMovingMarker(map,
+var marker = new L.Marker.createMovingMarker(map,
     ll, //the L.LatLng array
     14444, // vel or array of durations
     {autostart: true,
@@ -207,3 +212,4 @@ var marker = L.Marker.createMovingMarker(map,
 //
 // L.polyline(barcelonePerpignanPauBordeauxMarseilleMonaco,
 //     {color: 'green'}).addTo(map);
+}); // on load

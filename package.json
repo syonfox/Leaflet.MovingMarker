@@ -1,5 +1,5 @@
 {
-  "name": "@syonfox/leaflet-moving-marker",
+  "name": "endpoint-leaflet-moving-marker",
   "version": "1.0.0",
   "description": "L.MovingMarker(L.LatLng[], durations[], options)",
   "main": "MovingMarker.js",

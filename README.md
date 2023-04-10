@@ -42,6 +42,11 @@ Usage
 -----
 Add this line to your HTML file:
 
+```sh
+npm install endpoint-leaflet-moving-marker
+firefox node_module
+```
+
 ```html
 
 <script type="text/javascript" src="MovingMarker.js"></script>
